@@ -9,7 +9,7 @@ import { IProduct } from './models';
 
 function App() {
   const { loading, error, products, addProduct } = useProducts();
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const createHandler = (product: IProduct) => {
     setModal(false);
     addProduct(product);
@@ -23,11 +23,17 @@ function App() {
         <Product key={product.id} product={product} />
       ))}
       {modal && (
-        <Modal title='Create new product'>
+        <Modal title='Create new product' onClose={() => setModal(false)}>
           <CreateProduct onCreate={createHandler} />
         </Modal>
       )}
 
+      <button
+        className='absolute bottom-5 right-5 rounded-full bg-red-700 text-white rext-2xl px-4 py-3'
+        onClick={() => setModal(true)}
+      >
+        +
+      </button>
       {/* <Product product={products[0]} />
       <Product product={products[1]} /> */}
     </div>
